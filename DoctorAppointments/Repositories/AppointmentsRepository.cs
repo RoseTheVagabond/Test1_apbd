@@ -160,16 +160,16 @@ public class AppointmentsRepository : IAppointmentsRepository
 
     public async Task AddNewAppointment(NewAppointmentDTO newAppointment)
     {
-	    var insert = @"INSERT INTO Appointment VALUES(@AppointmentId, @PatientId, @DoctorId, CURRENT_DATE);";
-	    
 	    await using SqlConnection connection = new SqlConnection(_connectionString);
 	    await using SqlCommand command = new SqlCommand();
 	    
 	    command.Connection = connection;
 	    command.CommandText = "SELECT doctor_id FROM Doctor WHERE PWZ = @PWZ";
 	    command.Parameters.AddWithValue("@PWZ", newAppointment.PWZ);
-	    int doctorId = (int)await command.ExecuteScalarAsync();
+	    int doctorId = (int) await command.ExecuteScalarAsync();
 	    command.Parameters.Clear();
+	    
+	    var insert = @"INSERT INTO Appointment VALUES(@AppointmentId, @PatientId, @DoctorId, CURRENT_DATE);";
 	    command.CommandText = insert;
 	    
 	    command.Parameters.AddWithValue("@AppointmentId", newAppointment.AppointmentId);
