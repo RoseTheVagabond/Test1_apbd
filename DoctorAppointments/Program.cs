@@ -14,7 +14,7 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        builder.Services.AddScoped<IAppointmentsService, AppointmentsService>();
+        builder.Services.AddScoped<IAppointmentsRepository, AppointmentsRepository>();
         builder.Services.AddControllers();
 
         var app = builder.Build();
